@@ -1,0 +1,165 @@
+package igu;
+
+import javax.swing.JFrame;
+
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+
+/**
+ * Titulo: Clase VentanaPrincipal
+ * 
+ * @author UO281847
+ * @version 23/09/2021
+ */
+public class VentanaPrincipal extends JFrame{
+	/**
+	 * Atributo serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	private JSpinner spUnidades;
+	private JButton btAñadir;
+	private JButton btCancelar;
+	private JButton btSiguiente;
+	private JComboBox comboBox;
+	private JLabel lblPrecio;
+	private JTextField tfPrecio;
+	private JLabel lblUnidades;
+	private JLabel lblLogo;
+	private JLabel lblMcDonadls;
+	private JLabel lblArticulos;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaPrincipal frame = new VentanaPrincipal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public VentanaPrincipal() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setLayout(null);
+		getContentPane().add(getSpUnidades());
+		getContentPane().add(getBtAñadir());
+		getContentPane().add(getBtCancelar());
+		getContentPane().add(getBtSiguiente());
+		getContentPane().add(getComboBox());
+		getContentPane().add(getLblPrecio());
+		getContentPane().add(getTfPrecio());
+		getContentPane().add(getLblUnidades());
+		getContentPane().add(getLblLogo());
+		getContentPane().add(getLblMcDonadls());
+		getContentPane().add(getLblArticulos());
+		setTitle("McDonald's Espa\u00F1a");
+		setBounds(100, 100, 600, 400);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.png")));
+		
+	}
+	
+
+	private JSpinner getSpUnidades() {
+		if (spUnidades == null) {
+			spUnidades = new JSpinner();
+			spUnidades.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+			spUnidades.setBounds(363, 191, 54, 23);
+		}
+		return spUnidades;
+	}
+	private JButton getBtAñadir() {
+		if (btAñadir == null) {
+			btAñadir = new JButton("A\u00F1adir");
+			btAñadir.setForeground(Color.WHITE);
+			btAñadir.setBackground(new Color(0, 128, 0));
+			btAñadir.setBounds(427, 191, 76, 23);
+		}
+		return btAñadir;
+	}
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.setForeground(Color.WHITE);
+			btCancelar.setBackground(new Color(255, 0, 0));
+			btCancelar.setBounds(474, 327, 100, 23);
+		}
+		return btCancelar;
+	}
+	private JButton getBtSiguiente() {
+		if (btSiguiente == null) {
+			btSiguiente = new JButton("Siguiente");
+			btSiguiente.setForeground(Color.WHITE);
+			btSiguiente.setEnabled(false);
+			btSiguiente.setBounds(364, 327, 100, 23);
+		}
+		return btSiguiente;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setBounds(20, 191, 330, 23);
+		}
+		return comboBox;
+	}
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("Precio Pedido:");
+			lblPrecio.setBounds(363, 225, 82, 14);
+		}
+		return lblPrecio;
+	}
+	private JTextField getTfPrecio() {
+		if (tfPrecio == null) {
+			tfPrecio = new JTextField();
+			tfPrecio.setBounds(363, 250, 70, 23);
+			tfPrecio.setColumns(10);
+		}
+		return tfPrecio;
+	}
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("Unidades:");
+			lblUnidades.setBounds(363, 157, 70, 23);
+		}
+		return lblUnidades;
+	}
+	private JLabel getLblLogo() {
+		if (lblLogo == null) {
+			lblLogo = new JLabel("");
+			lblLogo.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logo.png")));
+			lblLogo.setBounds(40, 11, 152, 126);
+		}
+		return lblLogo;
+	}
+	private JLabel getLblMcDonadls() {
+		if (lblMcDonadls == null) {
+			lblMcDonadls = new JLabel("McDonald's");
+			lblMcDonadls.setFont(new Font("Arial Black", Font.PLAIN, 35));
+			lblMcDonadls.setBounds(202, 48, 243, 60);
+		}
+		return lblMcDonadls;
+	}
+	private JLabel getLblArticulos() {
+		if (lblArticulos == null) {
+			lblArticulos = new JLabel("Art\u00EDculos:");
+			lblArticulos.setBounds(20, 157, 70, 23);
+		}
+		return lblArticulos;
+	}
+}

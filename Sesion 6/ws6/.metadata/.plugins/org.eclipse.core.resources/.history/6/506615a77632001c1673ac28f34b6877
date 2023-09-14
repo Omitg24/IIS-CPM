@@ -1,0 +1,15 @@
+package logica;
+
+/**
+ * Titulo: Clase Dado
+ * 
+ * @author UO281847
+ *
+ */
+public class Dado {
+	
+	public static int lanzar()
+	{ 
+		return ((int) (Math.random() * Juego.maxDisparos) + 1);
+	}
+}

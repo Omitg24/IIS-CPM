@@ -1,0 +1,17 @@
+package logic.boxes;
+
+/**
+ * Titulo: Clase BoxGift
+ * 
+ * @author Omar Teixeira, UO281847
+ * @version 11 ene. 2022
+ */
+public class BoxGift extends Box{
+	
+	/**
+	 * Constructor de la clase BoxGift
+	 */
+	public BoxGift() {
+		setPoints(0);
+	}
+}

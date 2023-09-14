@@ -1,0 +1,25 @@
+package logica;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Menu {
+	
+	private static List<Articulo> listaDeArticulos = new ArrayList<Articulo>();
+	
+	public static void main(String[] args) {
+		inicializer(System.out);
+
+	}
+
+	private static void inicializer(PrintStream out) {
+		FileUtil.loadFile("articulos.dat", listaDeArticulos);
+		out.println("Bienvenido a McDonald's.");
+		out.println("Seleccione los productos que quiera");
+		for (int i=1; i<listaDeArticulos.size()+1;i++) {
+			out.println(listaDeArticulos.get(i) + "\n");
+		}
+	}
+
+}

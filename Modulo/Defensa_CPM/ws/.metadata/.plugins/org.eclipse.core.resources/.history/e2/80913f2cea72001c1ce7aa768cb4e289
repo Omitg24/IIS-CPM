@@ -1,0 +1,440 @@
+package logic;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import logic.boxes.BoxGift;
+import logic.boxes.BoxSpecial;
+import logic.boxes.BoxX2Points;
+
+/**
+ * Título: Clase Game
+ * Descripción: Clase principal del juego, aqui se comprueba en primer lugar si 
+ * el cliente puede o no jugar. 
+ * También se realiza la función principal del panel de botones para jugar.
+ * Y, por último, realiza las funciones de canjear los regalos.
+ *
+ * @author Omar Teixeira, UO281847
+ * @version 29 dic. 2021
+ */
+public class Game {
+//-- CONSTANTES ----------------------------------------------------------------
+	/**
+	 * Constante CLIENTS_FILE
+	 */
+	private static final String CLIENTS_FILE = "files/clientes.dat";
+	/**
+	 * Constante ES_GIFTS_FILE
+	 */
+	private static final String ES_GIFTS_FILE = "files/regalos.dat";
+	/**
+	 * Constante EN_GIFTS_FILE
+	 */
+	private static final String EN_GIFTS_FILE = "files/gifts.dat";
+	/**
+	 * Constante DELIVERIES_FILE
+	 */
+	private static final String DELIVERIES_FILE = "files/entregas.dat";
+//-- ATRIBUTOS -----------------------------------------------------------------
+	/**
+	 * Atributo listaClients
+	 */
+	private List<Client> listOfClients;
+	/**
+	 * Atributo clientName
+	 */
+	private String clientName;
+	/**
+	 * Atributo clientId
+	 */
+	private String clientId;
+	/**
+	 * Atributo points
+	 */
+	private int points;
+	/**
+	 * Atributo shots
+	 */
+	private int shots;	
+	/**
+	 * Atributo board
+	 */
+	private Board board;
+	/**
+	 * Atributo listOfGifts
+	 */
+	private List<Gift> listOfGifts;
+	/**
+	 * Atributo selectedGifts
+	 */
+	private List<Gift> selectedGifts;
+	/**
+	 * Atributo fileList
+	 */
+	private List<String> fileList;
+	
+	private static Gift gift;
+	
+	/**
+	 * Constructor de la clase Game
+	 */
+	public Game() {		
+		startGame();				
+	}
+	
+	/**
+	 * Método que comienza el juego
+	 */
+	public void startGame() {
+		listOfClients = new ArrayList<Client>();
+		listOfGifts = new ArrayList<Gift>();
+		selectedGifts = new ArrayList<Gift>();
+		fileList = new ArrayList<String>();
+		uploadClients();
+		uploadGifts();
+		System.out.println("~~~~~~~~ NUEVO JUEGO ~~~~~~~~");
+		this.points = 0;
+		this.shots = 3;
+		board = new Board();
+	}	
+//-- CLIENTES ------------------------------------------------------------------
+	/**
+	 * Método que carga el fichero de clientes en la lista de éstos
+	 */
+	private void uploadClients() {
+		FileUtil.loadClientFile(CLIENTS_FILE, listOfClients);
+	}
+	
+	/**
+	 * Método que devuelve una lista con todos los clientes
+	 * @return clientes, lista de todos los clientes
+	 */
+	public Client[] getClientes() {
+		Client[] clients = listOfClients.toArray(new Client[listOfClients.size()]);
+		return clients;
+	}
+	
+	/**
+	 * Método que comprueba si el id que se le pasa por parámetro corresponde a algún cliente.
+	 * En ese caso, comprobará si dicho cliente puede o no jugar al juego, si es así, devuelve 0.
+	 * Devuelve:
+	 * - 0: Si el id está en la lista y el cliente puede jugar.
+	 * - -1: Si el id está en la lista y el cliente no puede jugar.
+	 * - -2: Si el id no está en la lista.
+	 * 
+	 * @param id, id introducido en la aplicación
+	 * @return 0, -1 o -2, en función de si está el id y si puede jugar
+	 */
+	public int checkClients(String id){
+		Client[] clientsList = getClientes();
+		for (int i=0; i < clientsList.length; i++) {
+			if (clientsList[i].getId().equals(id)) {
+				if (clientsList[i].canPlay().equals("1")) {
+					this.clientName = clientsList[i].getFullName();
+					this.clientId = id;
+					//updateClient(clientName);
+					return 0;
+				}
+				return -1;
+			}
+		}
+		return -2;
+	}
+	
+	/**
+	 * Método que actualiza la lista de Clientes, cambiando que si alguien ya ha jugado, no pueda volver a jugar
+	 * 
+	 * @param clientName, nombre del cliente a actualizar en la aplicación
+	 */
+	public void updateClient(String clientName) {
+		Client[] listaDeClientes = getClientes();
+		for (int i=0; i < listaDeClientes.length; i++) {
+			if (listaDeClientes[i].getFullName().equals(clientName)) {
+				listaDeClientes[i].setCanPlay("0");				
+			}
+		}
+		listOfClients = Arrays.asList(listaDeClientes);
+		FileUtil.saveClientsToFile(CLIENTS_FILE, listOfClients);;
+	}
+	/**
+	 * Método que devuelve el nombre del cliente
+	 * 
+	 * @return clientName, nombre del cliente
+	 */
+	public String getClientName() {
+		return clientName;
+	}
+	
+	/**
+	 * Método que devuelve el id del cliente
+	 * 
+	 * @return clientId, id del cliente
+	 */
+	public String getClientId() {
+		return clientId;
+	}
+	
+//-- JUEGO ---------------------------------------------------------------------	
+	/**
+	 * Método que selecciona una casilla del tablero pasada su posicion como parámetro
+	 * 
+	 * @param pos, posicion
+	 */
+	public void shoot(int pos) {
+		shots--;
+		if (board.getBoxes()[pos] instanceof BoxSpecial) {
+			shots++;
+		} else if (board.getBoxes()[pos] instanceof BoxX2Points) {
+			this.points = 2*points;
+		} else if (board.getBoxes()[pos] instanceof BoxGift) {
+			gift=getRandomGift();
+		}
+		this.points += board.getBoxes()[pos].getPoints();
+	}
+	
+	public static Gift getGift() {
+		return gift;
+	}
+	
+	/**
+	 * Método que comprueba si se ha acabado el juego
+	 * 
+	 * @return true si se ha acabado
+	 */
+	public boolean gameOver() {
+		return shots==0;
+	}
+	
+	/**
+	 * Método que devuelve el tablero
+	 * 
+	 * @return board, tablero
+	 */
+	public Board getBoard() {
+		return board;
+	}
+	
+	/**
+	 * Método que devuelve los puntos
+	 * 
+	 * @return points, puntos
+	 */
+	public int getPoints() {
+		return points;
+	}
+	
+	/**
+	 * Método que devuelve los disparos
+	 * 
+	 * @return shots, disparos
+	 */
+	public int getShots() {
+		return shots;
+	}
+	
+//-- REGALOS -------------------------------------------------------------------
+	/**
+	 * Método que carga el fichero de clientes en la lista de éstos
+	 */
+	private void uploadGifts() {
+		FileUtil.loadGiftFile(ES_GIFTS_FILE, listOfGifts);
+	}
+	
+	/**
+	 * Método que cambia al inglés
+	 */
+	public void changeToEnglish(){
+		listOfGifts.removeAll(listOfGifts);
+		FileUtil.loadGiftFile(EN_GIFTS_FILE, listOfGifts);
+		reloadSelectedGifts();
+	}
+	
+	/**
+	 * Método que cambia al español
+	 */
+	public void changeToSpanish(){
+		listOfGifts.removeAll(listOfGifts);
+		FileUtil.loadGiftFile(ES_GIFTS_FILE, listOfGifts);
+		reloadSelectedGifts();
+	}
+	
+	/**
+	 * Método que recarga los regalos seleccionados, para que se traduzca la lista de estos
+	 */
+	private void reloadSelectedGifts() {
+		List<Gift> newSelectedGifts = new ArrayList<Gift>();
+		Gift aux;
+		for (int i = 0; i < listOfGifts.size(); i++) {			
+			for (int j=0; j < selectedGifts.size(); j++) {
+				if (selectedGifts.get(j).getId().equals(listOfGifts.get(i).getId())) {
+					aux = new Gift(listOfGifts.get(i));
+					if (!selectedGifts.get(j).getDate().equals("")) {
+						aux.setDate(selectedGifts.get(j).getDate());
+						if (selectedGifts.get(j).getObservations()!=null || selectedGifts.get(j).getObservations()!="") {
+							aux.setObservations(selectedGifts.get(j).getObservations());
+						}
+					}
+					aux.setUnits(selectedGifts.get(j).getUnits());
+					newSelectedGifts.add(aux);
+				}
+			}
+		}
+		this.selectedGifts = newSelectedGifts;
+	}
+	
+	/**
+	 * Método que devuelve la lista de regalos
+	 * 
+	 * @return listOfGifts, lista de regalos
+	 */
+	public List<Gift> getGiftList(){
+		return listOfGifts;
+	}
+	
+	/**
+	 * Método que devuelve una lista con todos los clientes
+	 * @return clientes, lista de todos los clientes
+	 */
+	public Gift[] getGifts() {
+		Gift[] gifts = listOfGifts.toArray(new Gift[listOfGifts.size()]);
+		return gifts;
+	}
+	
+	/**
+	 * Método que devueve un regalo para mostrar su información
+	 *
+	 * @param i, posición del regalo a mostrar
+	 * @return infoToString, info del regalo
+	 */
+	public String getGiftInfo(int i) {
+		return getGifts()[i].infoToString();
+	}
+	
+	/**
+	 * Método que devuelve la lista de los regalos seleccionados
+	 * 
+	 * @return selectedGifts, lista de los regalos seleccionados
+	 */
+	public List<Gift> getSelectedGifts() {
+		return selectedGifts; 
+	}
+	
+	/**
+	 * Método que devuelve la lista de regalos seleccionados 
+	 * 
+	 * @return strSelectedGifts, lista de regalos seleccionados
+	 */
+	public String getSelectedGiftsToString() {
+		String strSelectedGifts = "";
+		for (Gift gift : selectedGifts) {
+			strSelectedGifts+= gift.toString() + "\n";
+		}
+		return strSelectedGifts;
+	}
+	
+	/**
+	 * Método que añade a la lista los regalos escogidos
+	 * 
+	 * @param gift, regalo a añadir
+	 * @param units, unidades a añadir
+	 */
+	public void add(Gift gift, int units) {
+		int prevPoints = getPoints();
+		int giftPoints = units*Integer.valueOf(gift.getPoints());
+		this.points = prevPoints - giftPoints;
+		if (gift.getSection().equals("V")) {
+			if (checkDate(gift.getDate())) {
+				gift.setSummaryUnits(units);
+			}else {
+				gift.setUnits(units);
+				selectedGifts.add(gift);
+			}				
+		} else if (selectedGifts.contains(gift)) {
+			gift.setSummaryUnits(units);					
+		} else {
+			gift.setSummaryUnits(units);
+			selectedGifts.add(gift);
+		}
+	}
+	
+	/**
+	 * Método que comprueba que la fecha de un viaje ya está añadida
+	 * 
+	 * @param date, fecha
+	 * @return true o false, si ya está
+	 */
+	private boolean checkDate(String date) {
+		for (int i = 0; i<selectedGifts.size(); i++) {
+			if (selectedGifts.get(i).getDate().equals(date)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Método que elimina productos escogidos de la lista
+	 * 
+	 * @param gift, regalo a eliminar
+	 * @param units, unidades a eliminar
+	 */
+	public void remove(Gift gift, int units) {
+		int prevPoints = getPoints();
+		int giftPoints = units*Integer.valueOf(gift.getPoints());
+		this.points = prevPoints + giftPoints; 
+		if (gift.getUnits() == units) {
+			gift.setUnits(0);
+			selectedGifts.remove(gift);
+		} else {
+			if (gift.getUnits()>1) {
+				gift.setSummaryUnits(-1*units);
+			} else if (gift.getUnits()==1) {
+				gift.setSummaryUnits(-1*units);
+				selectedGifts.remove(gift);
+			}
+		}			
+	}
+	
+	/**
+	 * Método que muestra los productos seleccionados
+	 */
+	public void showSelectedGifts() {
+		for (Gift gift : selectedGifts) {
+			System.out.println(gift.toString());
+		}
+	}
+	
+	/**
+	 * Método que guarda los productos en el fichero de entrega
+	 */
+	public void saveDeliveriesToFile() {
+		for (int i=0; i<selectedGifts.size(); i++) {
+			addGifts(selectedGifts.get(i));			
+		}
+		FileUtil.saveDeliveriesToFile(DELIVERIES_FILE, fileList);
+	}
+	
+	/**
+	 * Método que añade los productos a la lista del fichero
+	 * 
+	 * @param gift, producto
+	 */
+	private void addGifts(Gift gift) {
+		if (gift.getUnits()>1) {
+			for(int i = 0; i < gift.getUnits(); i++) {
+				fileList.add(getClientId() + "@" + gift.fileToString());
+			}
+		} else {
+			fileList.add(getClientId() + "@" + gift.fileToString());
+		}
+	}
+	
+	public Gift getRandomGift() {
+		int posRandomGift = (int) (Math.random() * listOfGifts.size());
+		while (listOfGifts.get(posRandomGift).getSection().equals("V")) {
+			posRandomGift = (int) (Math.random() * listOfGifts.size());
+		}
+		return listOfGifts.get(posRandomGift);
+	}
+}

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+
+<toc version="1.0">
+  <tocitem text="Descripcion del Panel de Regalos" target="Introduccion" />
+  <tocitem text="Seleccion de idioma" target="Seleccion de idioma"/>  
+  <tocitem text="Introduccion del codigo" target="Introduccion del codigo"/>  
+  <tocitem text="Ventana del juego" target="Ventana del juego"
+    <tocitem text="Panel de botones" target = "Panel de botones"
+    	<tocitem text = "Regalo directo" target = "Regalo directo"/>
+    <tocitem> 
+    <tocitem text="Sus puntos" target = "Sus puntos"/>
+    <tocitem text="Sus tiradas" target = "Sus tiradas"/>
+  </tocitem>
+  <tocitem text="Ventana de canjeo" target = "Ventana de canjeo"
+    <tocitem text="Panel de canjeo" target = "Panel de canjeo"
+    	<tocitem text="Ventana de viajes/experiencias" target = "Ventana de viajes/experiencias"/>
+    </tocitem>  
+    <tocitem text="Filtros por seccion" target = "Filtros por seccion"/>
+    <tocitem text="Slider de filtrado" target = "Slider de filtrado"/>
+    <tocitem text="Sus puntos" target = "Sus puntos"/>
+    <tocitem text="Unidades a añadir/eliminar" target = "Unidades a añadir/eliminar"/>     
+    <tocitem text="Informacion del regalo" target = "Informacion del regalo"/>
+    <tocitem text="Lista de los regalos" target = "Lista de los regalos"/>
+    <tocitem text="Botones de eliminar y solicitar" target = "Botones de eliminar y solicitar"/>   
+  </tocitem>
+</toc>

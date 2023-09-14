@@ -1,0 +1,6 @@
+INDEX VERSION 1.131+D:\Clase\3. Ingeniería Informática de Software\Segundo curso\Comunicación Persona-Máquina\Sesión 3\ws3\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+393272115.index
+1391538861.index
+3422053143.index
+3170849665.index

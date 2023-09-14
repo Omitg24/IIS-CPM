@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+D:\Clase\3. Ingeniería Informática de Software\Segundo curso\Comunicación Persona-Máquina\Examen Practico Ejemplo\wsx\.metadata\.plugins\org.eclipse.jdt.core
+1879214017.index
+393272115.index
+1865797976.index

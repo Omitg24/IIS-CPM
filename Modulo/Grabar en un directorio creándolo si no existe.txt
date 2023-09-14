@@ -1,0 +1,19 @@
+import java.nio.file.*;
+
+public static void saveToFile(String nombreFicheroSalida, String txPedido) {
+	try {
+		String filePedido = "C:\\Pedidos\\" + nombreFicheroSalida + ".dat";
+		Path path = Paths.get(filePedido);
+		if (!Files.exists(path.getParent())) {
+			Files.createDirectory(path.getParent());
+		}
+		BufferedWriter fichero = new BufferedWriter(new FileWriter(filePedido));
+		fichero.write(txPedido);
+		fichero.close();
+	}
+	catch (FileNotFoundException fnfe) {
+		System.out.println("El archivo no se ha podido guardar");
+	} catch (IOException ioe) {
+		new RuntimeException("Error de entrada/salida");
+	}
+}

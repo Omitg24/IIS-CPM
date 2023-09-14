@@ -1,0 +1,122 @@
+package igu;
+
+import javax.swing.JFrame;
+
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JTextField;
+
+/**
+ * Titulo: Clase VentanaPrincipal
+ * 
+ * @author UO281847
+ * @version 23/09/2021
+ */
+public class VentanaPrincipal extends JFrame{
+	/**
+	 * Atributo serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	private JSpinner spUnidades;
+	private JButton btAñadir;
+	private JButton btCancelar;
+	private JButton btSiguiente;
+	private JComboBox comboBox;
+	private JLabel lblPrecio;
+	private JTextField textField;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaPrincipal frame = new VentanaPrincipal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public VentanaPrincipal() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setLayout(null);
+		getContentPane().add(getSpUnidades());
+		getContentPane().add(getBtAñadir());
+		getContentPane().add(getBtCancelar());
+		getContentPane().add(getBtSiguiente());
+		getContentPane().add(getComboBox());
+		getContentPane().add(getLblPrecio());
+		getContentPane().add(getTextField());
+		setTitle("McDonald's Espa\u00F1a");
+		setBounds(100, 100, 600, 350);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.png")));
+		
+	}
+	
+
+	private JSpinner getSpUnidades() {
+		if (spUnidades == null) {
+			spUnidades = new JSpinner();
+			spUnidades.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+			spUnidades.setBounds(363, 148, 54, 23);
+		}
+		return spUnidades;
+	}
+	private JButton getBtAñadir() {
+		if (btAñadir == null) {
+			btAñadir = new JButton("A\u00F1adir");
+			btAñadir.setBackground(new Color(0, 128, 0));
+			btAñadir.setBounds(427, 148, 76, 23);
+		}
+		return btAñadir;
+	}
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.setBackground(new Color(255, 0, 0));
+			btCancelar.setBounds(473, 277, 100, 23);
+		}
+		return btCancelar;
+	}
+	private JButton getBtSiguiente() {
+		if (btSiguiente == null) {
+			btSiguiente = new JButton("Siguiente");
+			btSiguiente.setEnabled(false);
+			btSiguiente.setBounds(363, 277, 100, 23);
+		}
+		return btSiguiente;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setBounds(20, 148, 330, 23);
+		}
+		return comboBox;
+	}
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("Precio Pedido:");
+			lblPrecio.setBounds(363, 195, 82, 14);
+		}
+		return lblPrecio;
+	}
+	private JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setBounds(363, 222, 70, 29);
+			textField.setColumns(10);
+		}
+		return textField;
+	}
+}

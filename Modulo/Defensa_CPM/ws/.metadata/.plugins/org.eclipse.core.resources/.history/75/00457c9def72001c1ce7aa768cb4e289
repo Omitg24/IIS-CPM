@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Introduccion</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<h1>Casilla Regalo Directo</h1>
+	<p id = "regalo">
+		Si selecciona esta casilla podrá obtener un regalo directamente de la lista de regalos.
+		<br>
+		Para ello, debe presionar en las casillas del panel de botones, así obtendrá uno de los regalos posibles (sin contar la sección de viajes).
+		<br><br>
+		Cabe mencionar, que si, la obtiene, se mostrará el icono del regalo correspondiente.<br>
+		Y, se añadirá a su lista de regalos directamente, pero no tendrá la opción de eliminarlo.		
+	</p>
+</body>
+</html>

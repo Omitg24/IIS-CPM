@@ -1,0 +1,404 @@
+package igu;
+
+import javax.swing.JFrame;
+
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SpinnerNumberModel;
+
+import logica.Articulo;
+import logica.Carta;
+import logica.Pedido;
+
+import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+
+/**
+ * Titulo: Clase VentanaPrincipal
+ * 
+ * @author UO281847
+ * @version 23/09/2021
+ */
+public class VentanaPrincipal extends JFrame{
+	/**
+	 * Atributo serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Atributo spUnidades
+	 */
+	private JSpinner spUnidades;
+	/**
+	 * Atributo btAñadir
+	 */
+	private JButton btAñadir;
+	/**
+	 * Atributo btCancelar
+	 */
+	private JButton btCancelar;
+	/**
+	 * Atributo btSiguiente
+	 */
+	private JButton btSiguiente;
+	/**
+	 * Atributo comboBox
+	 */
+	private JComboBox<Articulo> cbArticulos;
+	/**
+	 * Atributo lblPrecio
+	 */
+	private JLabel lblPrecio;
+	/**
+	 * Atributo tfPrecio
+	 */
+	private JTextField tfPrecio;
+	/**
+	 * Atributo lblUnidades
+	 */
+	private JLabel lblUnidades;
+	/**
+	 * Atributo lblLogo
+	 */
+	private JLabel lblLogo;
+	/**
+	 * Atributo lblMcDonadls
+	 */
+	private JLabel lblMcDonadls;
+	/**
+	 * Atributo lblArticulos
+	 */
+	private JLabel lblArticulos;
+	
+	/**
+	 * Atributo pedido
+	 */
+	private Pedido pedido;
+	/**
+	 * Atributo carta
+	 */
+	private Carta carta;
+	/**
+	 * Atributo precio
+	 */
+	private static float precio;
+	private JLabel lblMcHappyDay;
+	private JLabel lblNumeroDeArticulos;
+	private JLabel lblPromocíon;
+	
+	/**
+	 * Constructor de la ventana principal
+	 */
+	public VentanaPrincipal(Carta carta, Pedido pedido) {
+		this.pedido = pedido;
+		this.carta = carta;
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setLayout(null);
+		getContentPane().add(getSpUnidades());
+		getContentPane().add(getBtAñadir());
+		getContentPane().add(getBtCancelar());
+		getContentPane().add(getBtSiguiente());
+		getContentPane().add(getCbArticulo());
+		getContentPane().add(getLblPrecio());
+		getContentPane().add(getTfPrecio());
+		getContentPane().add(getLblUnidades());
+		getContentPane().add(getLblLogo());
+		getContentPane().add(getLblMcDonadls());
+		getContentPane().add(getLblArticulos());
+		getContentPane().add(getLblMcHappyDay());
+		getContentPane().add(getLblNumeroDeArticulos());
+		getContentPane().add(getLblPromocion());
+		setTitle("McDonald's Espa\u00F1a");
+		setBounds(100, 100, 700, 400);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.png")));
+		
+	}
+	
+	/**
+	 * Método que muestra la ventana de registro
+	 */
+	private void mostrarVentanaRegistro() {
+		VentanaRegistro vRegistro = new VentanaRegistro();
+		vRegistro.setLocationRelativeTo(this);
+		vRegistro.setModal(true);
+		vRegistro.setVisible(true);
+	}
+	
+	/**
+	 * Método que crea el spinner de unidades
+	 * 
+	 * @return spinner
+	 */
+	@SuppressWarnings("deprecation")
+	private JSpinner getSpUnidades() {
+		if (spUnidades == null) {
+			spUnidades = new JSpinner();
+			spUnidades.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+			spUnidades.setBounds(463, 191, 54, 23);
+		}
+		return spUnidades;
+	}
+	
+	/**
+	 * Método que crea el botón añadir
+	 *  
+	 * @return boton
+	 */
+	private JButton getBtAñadir() {
+		if (btAñadir == null) {
+			btAñadir = new JButton("A\u00F1adir");
+			btAñadir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirAPedido();
+				}
+			});
+			btAñadir.setForeground(Color.WHITE);
+			btAñadir.setBackground(new Color(0, 128, 0));
+			btAñadir.setBounds(527, 191, 76, 23);
+		}
+		return btAñadir;
+	}
+	
+	/**
+	 * Método que añade al pedido
+	 */
+	private void añadirAPedido() {
+		Articulo arti = (Articulo) getCbArticulo().getSelectedItem();		
+		int uni = (int) getSpUnidades().getValue();
+		pedido.add(arti, uni);
+		precio = Math.round(pedido.getTotal()*100.0/100.0);
+		unidadesProducto();
+		if(precio>=50) {			
+			precio = pedido.getTotalWithDiscount();
+			getLblPromocion().setText("10% de Descuento");
+		}
+		getTfPrecio().setText(String.valueOf(precio) + " €");
+		pedido.grabarPedido();
+		if(!getBtSiguiente().isEnabled()) {
+			getBtSiguiente().setEnabled(true);
+		}		
+	}
+	/**
+	 * Método que calcula las uniaddes del producto
+	 */
+	private void unidadesProducto() {
+		int uni = 0;
+		Articulo arti = (Articulo) getCbArticulo().getSelectedItem();
+		
+		for (Articulo a : pedido.getLista()) {
+			if (arti.getCodigo().equals(a.getCodigo())) {				
+				uni = a.getUnidades();
+				arti.setUnidades(uni);
+			} 
+		}
+		String pedidoString = "Hay "+ uni + " uds. de este producto";
+		getLblNumeroDeArticulos().setText(pedidoString);
+	}
+	
+	/**
+	 * Método que devuelve el precio del pedido
+	 * 
+	 * @return precio
+	 */
+	public static float getPrecio() {
+		return precio;
+	}
+	
+	/**
+	 * Método que crea el botón cancelar
+	 * 
+	 * @return boton
+	 */
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(EXIT_ON_CLOSE);
+				}
+			});
+			btCancelar.setForeground(Color.WHITE);
+			btCancelar.setBackground(new Color(255, 0, 0));
+			btCancelar.setBounds(574, 327, 100, 23);
+		}
+		return btCancelar;
+	}
+	
+	/**
+	 * Método que crea el botón siguiente
+	 * 
+	 * @return boton
+	 */
+	private JButton getBtSiguiente() {
+		if (btSiguiente == null) {
+			btSiguiente = new JButton("Siguiente");
+			btSiguiente.setEnabled(false);
+			btSiguiente.setBackground(new Color(0, 128, 0));
+			btSiguiente.addActionListener(new ActionListener() {				
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaRegistro();
+				}
+			});
+			btSiguiente.setForeground(Color.WHITE);
+			btSiguiente.setBounds(464, 327, 100, 23);
+		}
+		return btSiguiente;
+	}
+	
+	/**
+	 * Método que crea el combobox con los productos
+	 * 
+	 * @return combobox
+	 */
+	private JComboBox<Articulo> getCbArticulo() {
+		if (cbArticulos == null) {
+			cbArticulos = new JComboBox<Articulo>();
+			cbArticulos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					unidadesProducto();
+				}
+			});
+			cbArticulos.setModel(new DefaultComboBoxModel<Articulo>(carta.getArticulos()));
+			cbArticulos.setBounds(20, 191, 425, 23);			
+		}
+		
+		return cbArticulos;
+	}
+	
+	/**
+	 * Método que crea la etiqueta del precio
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("Precio Pedido:");
+			lblPrecio.setBounds(463, 225, 82, 14);
+		}
+		return lblPrecio;
+	}
+	
+	/**
+	 * Método que crea el textField del precio
+	 * 
+	 * @return texto
+	 */
+	private JTextField getTfPrecio() {
+		if (tfPrecio == null) {
+			tfPrecio = new JTextField();
+			tfPrecio.setEditable(false);
+			tfPrecio.setBounds(463, 250, 70, 23);
+			tfPrecio.setColumns(10);
+		}
+		return tfPrecio;
+	}
+	
+	/**
+	 * Método que creea la etiqueta de unidades
+	 *  
+	 * @return etiqueta
+	 */
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("Unidades:");
+			lblUnidades.setBounds(463, 157, 70, 23);
+		}
+		return lblUnidades;
+	}
+	
+	/**
+	 * Método que crea la etiqueta del logo
+	 *  
+	 * @return etiqueta
+	 */
+	private JLabel getLblLogo() {
+		if (lblLogo == null) {
+			lblLogo = new JLabel("");
+			lblLogo.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logo.png")));
+			lblLogo.setBounds(40, 11, 152, 126);
+		}
+		return lblLogo;
+	}
+	
+	/**
+	 * Método que crea la etiqueta McDonald's
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblMcDonadls() {
+		if (lblMcDonadls == null) {
+			lblMcDonadls = new JLabel("McDonald's");
+			lblMcDonadls.setFont(new Font("Arial Black", Font.PLAIN, 35));
+			lblMcDonadls.setBounds(202, 48, 243, 60);
+		}
+		return lblMcDonadls;
+	}
+	
+	/**
+	 * Método que crea la etiqueta de Articulos
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblArticulos() {
+		if (lblArticulos == null) {
+			lblArticulos = new JLabel("Art\u00EDculos:");
+			lblArticulos.setBounds(20, 157, 70, 23);
+		}
+		return lblArticulos;
+	}
+	
+	/**
+	 * Método que crea la etiqueta del McHappyDay
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblMcHappyDay() {
+		if (lblMcHappyDay == null) {
+			lblMcHappyDay = new JLabel("");
+			lblMcHappyDay.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/mchappy-day-2018(1).jpg")));
+			lblMcHappyDay.setBounds(463, 11, 152, 149);
+		}
+		return lblMcHappyDay;
+	}
+	
+	/**
+	 * Método que crea la etiqueta de las unidades de cada articulo
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblNumeroDeArticulos() {
+		if (lblNumeroDeArticulos == null) {
+			lblNumeroDeArticulos = new JLabel("");
+			lblNumeroDeArticulos.setForeground(Color.RED);
+			lblNumeroDeArticulos.setBounds(20, 262, 425, 23);
+		}
+		return lblNumeroDeArticulos;
+	}
+	
+	/**
+	 * Método que crea la etiqueta de la promocion
+	 * 
+	 * @return etiqueta
+	 */
+	private JLabel getLblPromocion() {
+		if (lblPromocíon == null) {
+			lblPromocíon = new JLabel("");
+			lblPromocíon.setBackground(new Color(0, 128, 0));
+			lblPromocíon.setForeground(Color.RED);
+			lblPromocíon.setFont(new Font("Arial", Font.PLAIN, 11));
+			lblPromocíon.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPromocíon.setBounds(543, 250, 100, 23);
+		}
+		return lblPromocíon;
+	}
+}

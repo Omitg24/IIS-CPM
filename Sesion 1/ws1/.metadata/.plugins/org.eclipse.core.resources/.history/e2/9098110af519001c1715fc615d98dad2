@@ -1,0 +1,250 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+
+/**
+ * Titulo: Clase VentanaRegistro
+ *  
+ * @author UO281847
+ * @version 16/09/2021
+ */
+@SuppressWarnings("serial")
+public class VentanaRegistro extends JFrame {
+	/**
+	 * Atributo contentPane
+	 */
+	private JPanel contentPane;
+	/**
+	 * Atributo btSiguiente
+	 */
+	private JButton btSiguiente;
+	/**
+	 * Atributo pnPedido
+	 */
+	private JPanel pnPedido;
+	/**
+	 * Atributo rdLocal
+	 */
+	private JRadioButton rdLocal;
+	/**
+	 * Atributo rdLlevar
+	 */
+	private JRadioButton rdLlevar;
+	/**
+	 * Atributo btCancelar
+	 */
+	private JButton btCancelar;
+	/**
+	 * Atributo pnCliente
+	 */
+	private JPanel pnCliente;
+	/**
+	 * Atributo buttonGroup
+	 */
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JLabel lblPassword;
+	private JLabel lblReintroduzcaPassword;
+	private JLabel lblAñoDeNacimiento;
+	private JLabel lblNameSurname;
+	private JComboBox<Object> cbNacimiento;
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
+	private JTextField textField;
+	private JButton btOscuro;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtSiguiente());
+		contentPane.add(getPnPedido());
+		contentPane.add(getBtCancelar());
+		contentPane.add(getPnCliente());
+		
+		
+	}
+	
+	private JButton getBtSiguiente() {
+		if (btSiguiente == null) {
+			btSiguiente = new JButton("SIguiente");
+			btSiguiente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (!pwNameSurname.getText().isEmpty() && 
+							String.valueOf(pwPass.getPassword()).equals(String.valueOf(pwPassR.getPassword()))) {
+						JOptionPane.showMessageDialog(null, "Bienvenido!"); 
+					} else {
+						JOptionPane.showMessageDialog(null, "Incorrecto! Pruebe otra vez");
+					}
+				}
+			});
+			btSiguiente.setForeground(new Color(255, 255, 255));
+			btSiguiente.setBackground(new Color(0, 128, 0));
+			btSiguiente.setBounds(327, 218, 93, 32);
+		}
+		return btSiguiente;
+	}
+	private JPanel getPnPedido() {
+		if (pnPedido == null) {
+			pnPedido = new JPanel();
+			pnPedido.setAlignmentY(Component.TOP_ALIGNMENT);
+			pnPedido.setAlignmentX(Component.LEFT_ALIGNMENT);
+			pnPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Pedido", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+			pnPedido.setBackground(new Color(255, 255, 255));
+			pnPedido.setBounds(10, 181, 254, 69);
+			pnPedido.setLayout(null);
+			pnPedido.add(getRdLocal());
+			pnPedido.add(getRdLlevar());
+		}
+		return pnPedido;
+	}
+	private JRadioButton getRdLocal() {
+		if (rdLocal == null) {
+			rdLocal = new JRadioButton("Local");
+			rdLocal.setBounds(16, 25, 68, 23);
+			buttonGroup.add(rdLocal);
+			rdLocal.setSelected(true);
+			rdLocal.setBackground(new Color(255, 255, 255));
+		}
+		return rdLocal;
+	}
+	private JRadioButton getRdLlevar() {
+		if (rdLlevar == null) {
+			rdLlevar = new JRadioButton("Llevar");
+			rdLlevar.setBounds(153, 25, 68, 23);
+			buttonGroup.add(rdLlevar);
+			rdLlevar.setBackground(Color.WHITE);
+		}
+		return rdLlevar;
+	}
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			btCancelar.setForeground(new Color(255, 255, 255));
+			btCancelar.setBackground(new Color(255, 0, 0));
+			btCancelar.setBounds(467, 218, 93, 32);
+		}
+		return btCancelar;
+	}
+	private JPanel getPnCliente() {
+		if (pnCliente == null) {
+			pnCliente = new JPanel();
+			pnCliente.setLayout(null);
+			pnCliente.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+			pnCliente.setBackground(Color.WHITE);
+			pnCliente.setAlignmentY(0.0f);
+			pnCliente.setAlignmentX(0.0f);
+			pnCliente.setBounds(10, 11, 564, 168);
+			pnCliente.add(getLblPassword());
+			pnCliente.add(getLblReintroduzcaPassword());
+			pnCliente.add(getLblAñoDeNacimiento());
+			pnCliente.add(getLblNameSurname());
+			pnCliente.add(getCbNacimiento());
+			pnCliente.add(getPasswordField());
+			pnCliente.add(getPasswordField_1());
+			pnCliente.add(getTextField());
+			pnCliente.add(getBtOscuro());
+		}
+		return pnCliente;
+	}
+	private JLabel getLblPassword() {
+		if (lblPassword == null) {
+			lblPassword = new JLabel("Password:");
+			lblPassword.setBounds(10, 107, 94, 14);
+		}
+		return lblPassword;
+	}
+	private JLabel getLblReintroduzcaPassword() {
+		if (lblReintroduzcaPassword == null) {
+			lblReintroduzcaPassword = new JLabel("Reintroduzca password:");
+			lblReintroduzcaPassword.setBounds(10, 142, 161, 14);
+		}
+		return lblReintroduzcaPassword;
+	}
+	private JLabel getLblAñoDeNacimiento() {
+		if (lblAñoDeNacimiento == null) {
+			lblAñoDeNacimiento = new JLabel("A\u00F1o de nacimiento:");
+			lblAñoDeNacimiento.setBounds(10, 70, 116, 14);
+		}
+		return lblAñoDeNacimiento;
+	}
+	private JLabel getLblNameSurname() {
+		if (lblNameSurname == null) {
+			lblNameSurname = new JLabel("Nombre y Apellidos:");
+			lblNameSurname.setBounds(10, 32, 116, 14);
+		}
+		return lblNameSurname;
+	}
+	private JComboBox<Object> getCbNacimiento() {
+		if (cbNacimiento == null) {
+			cbNacimiento = new JComboBox<Object>();
+			cbNacimiento.setSelectedIndex(52);
+			cbNacimiento.setBounds(167, 66, 116, 22);
+		}
+		return cbNacimiento;
+	}
+	private JPasswordField getPasswordField() {
+		if (passwordField == null) {
+			passwordField = new JPasswordField();
+			passwordField.setBounds(167, 104, 263, 20);
+		}
+		return passwordField;
+	}
+	private JPasswordField getPasswordField_1() {
+		if (passwordField_1 == null) {
+			passwordField_1 = new JPasswordField();
+			passwordField_1.setBounds(167, 139, 263, 20);
+		}
+		return passwordField_1;
+	}
+	private JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setColumns(10);
+			textField.setBounds(167, 29, 352, 20);
+		}
+		return textField;
+	}
+	private JButton getBtOscuro() {
+		if (btOscuro == null) {
+			btOscuro = new JButton("Modo Oscuro");
+			btOscuro.setBounds(378, 175, 114, 23);
+		}
+		return btOscuro;
+	}
+}

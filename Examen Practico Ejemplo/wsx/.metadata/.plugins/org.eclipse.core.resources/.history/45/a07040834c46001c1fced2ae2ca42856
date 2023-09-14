@@ -1,0 +1,37 @@
+package logica;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Pedido {
+	
+	private List<Articulo> listaPedido;
+
+	public Pedido() {
+		listaPedido = new ArrayList<Articulo>();
+		inicializar();
+	}
+	
+	private void inicializar() {
+		listaPedido.clear();
+	}
+
+	public void add (Articulo articuloDelCatalogo, int unidades){
+		Articulo articuloEnPedido = null;
+	
+		for (Articulo a : listaPedido){
+			if (a.getCodigo().equals(articuloDelCatalogo.getCodigo()))
+				articuloEnPedido = a;
+		}
+		
+		if (articuloEnPedido == null){
+			Articulo articuloAPedido = new Articulo(articuloDelCatalogo);
+			articuloAPedido.setUnidades(unidades);
+			listaPedido.add(articuloAPedido);
+		}
+		else {
+			int totalUnidades = articuloEnPedido.getUnidades() + unidades;
+			articuloEnPedido.setUnidades(totalUnidades);
+		}
+	}
+}

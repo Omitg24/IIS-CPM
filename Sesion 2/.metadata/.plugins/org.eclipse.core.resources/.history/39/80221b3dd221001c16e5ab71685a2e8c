@@ -1,0 +1,27 @@
+package logica;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Menu {
+	
+	private static Articulo[] listaDeArticulos;
+	
+	public static void main(String[] args) {
+		
+		inicializer(System.out);		
+	}
+
+	private static void inicializer(PrintStream out) {
+		Carta carta = new Carta();
+		listaDeArticulos = carta.getArticulos();
+		out.println("Bienvenido a McDonald's.");
+		out.println("Seleccione los productos que quiera\n");
+		for (int i=0; i<listaDeArticulos.length;i++) {
+			out.println(i + "->  ");
+			out.print(listaDeArticulos[i]);
+		}
+	}
+
+}

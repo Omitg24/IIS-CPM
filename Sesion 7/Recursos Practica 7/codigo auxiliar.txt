@@ -1,0 +1,26 @@
+// Modificar la posición y dimensiones del panel del tablero
+getPnTablero().setBounds(x, y, ancho, alto);
+
+//Modificar el layout
+getPnTablero().setLayout(new GridLayout(filas, columnas, 4, 0));
+
+//Eliminar todos los componentes del panel del tablero
+getPnTablero().removeAll();
+
+//Método que hay que invocar al finalizar de hacer cambios en el panel para que se vean todos
+validate(); //si añadimos elementos
+repaint(); //si eliminamos
+
+//Generación dinámica de un botón del tablero
+private JButton nuevoBoton(int i) {
+		JButton bt = new JButton("");
+		bt.setActionCommand(String.valueOf(i));
+		bt.setBackground(Color.BLACK);
+		bt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int posicion = Integer.parseInt(bt.getActionCommand());
+				dispara(posicion);
+			}
+		});
+		return bt;
+	}

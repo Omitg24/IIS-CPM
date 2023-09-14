@@ -1,0 +1,194 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.AttributeSet.ColorAttribute;
+
+/**
+ * Titulo: Clase VentanaRegistro
+ *  
+ * @author UO281847
+ * @version 16/09/2021
+ */
+@SuppressWarnings("serial")
+public class VentanaRegistro extends JFrame {
+	private JPanel contentPane;
+	private JButton btSiguiente;
+	private JPanel pnPedido;
+	private JRadioButton rdLocal;
+	private JRadioButton rdLlevar;
+	private JButton btCancelar;
+	private JPanel pnPedido_1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JLabel lblReintroduzcaPassword;
+	private JTextField pwNameSurname;
+	private JPasswordField pwPass;
+	private JPasswordField pwPassR;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtSiguiente());
+		contentPane.add(getPnPedido());
+		contentPane.add(getBtCancelar());
+		contentPane.add(getPnPedido_1());
+		
+		JButton btOscuro = new JButton("Modo Oscuro");
+		btOscuro.setBounds(388, 184, 114, 23);
+		contentPane.add(btOscuro);
+		btOscuro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contentPane.setBackground(Color.gray);
+			}
+		});
+		
+		
+	}
+	
+	private JButton getBtSiguiente() {
+		if (btSiguiente == null) {
+			btSiguiente = new JButton("SIguiente");
+			btSiguiente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (!pwNameSurname.getText().isEmpty() && 
+							String.valueOf(pwPass.getPassword()).equals(String.valueOf(pwPassR.getPassword()))) {
+						JOptionPane.showMessageDialog(null, "Bienvenido!"); 
+					} else {
+						JOptionPane.showMessageDialog(null, "Incorrecto! Pruebe otra vez");
+					}
+				}
+			});
+			btSiguiente.setForeground(new Color(255, 255, 255));
+			btSiguiente.setBackground(new Color(0, 128, 0));
+			btSiguiente.setBounds(327, 218, 93, 32);
+		}
+		return btSiguiente;
+	}
+	private JPanel getPnPedido() {
+		if (pnPedido == null) {
+			pnPedido = new JPanel();
+			pnPedido.setAlignmentY(Component.TOP_ALIGNMENT);
+			pnPedido.setAlignmentX(Component.LEFT_ALIGNMENT);
+			pnPedido.setBorder(new TitledBorder(null, "Pedido", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnPedido.setBackground(new Color(255, 255, 255));
+			pnPedido.setBounds(10, 181, 254, 69);
+			pnPedido.setLayout(null);
+			pnPedido.add(getRdLocal());
+			pnPedido.add(getRdLlevar());
+		}
+		return pnPedido;
+	}
+	private JRadioButton getRdLocal() {
+		if (rdLocal == null) {
+			rdLocal = new JRadioButton("Local");
+			rdLocal.setBounds(16, 25, 68, 23);
+			buttonGroup.add(rdLocal);
+			rdLocal.setSelected(true);
+			rdLocal.setBackground(new Color(255, 255, 255));
+		}
+		return rdLocal;
+	}
+	private JRadioButton getRdLlevar() {
+		if (rdLlevar == null) {
+			rdLlevar = new JRadioButton("Llevar");
+			rdLlevar.setBounds(153, 25, 68, 23);
+			buttonGroup.add(rdLlevar);
+			rdLlevar.setBackground(Color.WHITE);
+		}
+		return rdLlevar;
+	}
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			btCancelar.setForeground(new Color(255, 255, 255));
+			btCancelar.setBackground(new Color(255, 0, 0));
+			btCancelar.setBounds(467, 218, 93, 32);
+		}
+		return btCancelar;
+	}
+	private JPanel getPnPedido_1() {
+		if (pnPedido_1 == null) {
+			pnPedido_1 = new JPanel();
+			pnPedido_1.setLayout(null);
+			pnPedido_1.setBorder(new TitledBorder(null, "Datos del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnPedido_1.setBackground(Color.WHITE);
+			pnPedido_1.setAlignmentY(0.0f);
+			pnPedido_1.setAlignmentX(0.0f);
+			pnPedido_1.setBounds(10, 11, 564, 168);
+			
+			JLabel lblNameSurname = new JLabel("Nombre y Apellidos:");
+			lblNameSurname.setBounds(10, 30, 116, 14);
+			pnPedido_1.add(lblNameSurname);
+			
+			JLabel lblPassword = new JLabel("Password:");
+			lblPassword.setBounds(10, 105, 94, 14);
+			pnPedido_1.add(lblPassword);
+			
+			JLabel lblAoDeNacimiento = new JLabel("A\u00F1o de nacimiento:");
+			lblAoDeNacimiento.setBounds(10, 68, 116, 14);
+			pnPedido_1.add(lblAoDeNacimiento);
+			pnPedido_1.add(getLblReintroduzcaPassword());
+			
+			pwNameSurname = new JTextField();
+			pwNameSurname.setColumns(10);
+			pwNameSurname.setBounds(167, 27, 352, 20);
+			pnPedido_1.add(pwNameSurname);
+			
+			JComboBox<Object> comboBox = new JComboBox<Object>();
+			comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"}));
+			comboBox.setBounds(167, 64, 116, 22);
+			pnPedido_1.add(comboBox);
+			
+			pwPass = new JPasswordField();
+			pwPass.setBounds(167, 102, 263, 20);
+			pnPedido_1.add(pwPass);
+			
+			pwPassR = new JPasswordField();
+			pwPassR.setBounds(167, 137, 263, 20);
+			pnPedido_1.add(pwPassR);
+		}
+		return pnPedido_1;
+	}
+	private JLabel getLblReintroduzcaPassword() {
+		if (lblReintroduzcaPassword == null) {
+			lblReintroduzcaPassword = new JLabel("Reintroduzca password:");
+			lblReintroduzcaPassword.setBounds(10, 140, 161, 14);
+		}
+		return lblReintroduzcaPassword;
+	}
+}

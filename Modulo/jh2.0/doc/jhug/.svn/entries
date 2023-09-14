@@ -1,0 +1,166 @@
+8
+
+dir
+52
+https://javahelp.dev.java.net/svn/javahelp/trunk/jhMaster/JavaHelp/doc/jhug
+https://javahelp.dev.java.net/svn/javahelp
+
+
+
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+8ea2465c-fe21-0410-bc8c-897f37722d07
+
+release
+dir
+
+titlepage.html
+file
+
+
+
+
+2007-08-15T09:45:15.515625Z
+86871fdd704002679abfafd94f7fe4c4
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+jhugIndex.xml
+file
+
+
+
+
+2007-08-15T09:45:15.578125Z
+345bfc4dc353c3e3126cf8c19273a0b6
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+jhug.css
+file
+
+
+
+
+2007-08-15T09:45:15.546875Z
+824e764d90154973928dc5f0e789c558
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+GNUmakefile
+file
+
+
+
+
+2007-08-15T09:45:15.609375Z
+e6f05f3f2216b51b6bb2775e74832a2c
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+jhugIndex.html
+file
+
+
+
+
+2007-08-15T09:45:15.656250Z
+6afdcd4f58c79db383fadf0cda3fca36
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+locale
+dir
+
+jhug.html
+file
+
+
+
+
+2007-08-15T09:45:15.687500Z
+7a36f28269d3baa3e5bec38f933032d0
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+jhugTOC.xml
+file
+
+
+
+
+2007-08-15T09:45:15.718750Z
+3e0dbb245bbaadf9b8034b2180dcbc97
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+author
+dir
+
+jhug.pdf
+file
+
+
+
+
+2007-08-15T09:45:15.765625Z
+9dce0cb1c837e7cf062ca17e9b324796
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+images
+dir
+
+jhug.hs
+file
+
+
+
+
+2007-08-15T09:45:15.843750Z
+473132df583465a778a8f02851ac2f94
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+overview
+dir
+
+jhug.jhm
+file
+
+
+
+
+2007-08-15T09:45:15.890625Z
+99910ae7915403929730da5033ae1562
+2006-11-12T03:51:19.474428Z
+19
+brinkley
+
+dev
+dir
+

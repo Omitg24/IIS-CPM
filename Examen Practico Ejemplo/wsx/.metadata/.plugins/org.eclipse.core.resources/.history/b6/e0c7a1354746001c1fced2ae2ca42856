@@ -1,0 +1,9 @@
+package logica;
+
+public class Articulo {
+
+	public Articulo(String codigo, String tipo, String producto, float parseFloat, int puntos) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

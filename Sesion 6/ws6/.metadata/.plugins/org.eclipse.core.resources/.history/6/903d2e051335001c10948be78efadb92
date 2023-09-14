@@ -1,0 +1,5 @@
+package logica;
+
+public abstract class Meteorito extends Casilla {
+
+}

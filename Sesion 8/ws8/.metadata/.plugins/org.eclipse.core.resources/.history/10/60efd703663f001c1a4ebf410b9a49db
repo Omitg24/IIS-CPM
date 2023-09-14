@@ -1,0 +1,24 @@
+package igu;
+
+public class Main {
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Properties p = new Properties();
+					p.put("logoString", "");
+					HiFiLookAndFeel.setCurrentTheme(p);
+					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+					VentanaPrincipal frame = new VentanaPrincipal(juego);
+					frame.setVisible(true);					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

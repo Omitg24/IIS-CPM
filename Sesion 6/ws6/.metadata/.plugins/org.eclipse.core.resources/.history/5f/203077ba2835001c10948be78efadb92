@@ -1,0 +1,630 @@
+package igu;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
+import javax.swing.border.LineBorder;
+
+import logica.Juego;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
+
+/**
+ * Titulo: Clase VentanaPrincipal
+ * 
+ * @author UO281847
+ * @version 21/10/2021
+ */
+public class VentanaPrincipal extends JFrame {
+	
+	/**
+	 * Constante serialVersionUID
+	 */
+	private static final long serialVersionUID = 6194113605294977870L;
+	/**
+	 * Atributo juego
+	 */
+	private Juego juego;
+	/**
+	 * Atributo contentPane
+	 */
+	private JPanel contentPane;
+	/**
+	 * Atributo btDado
+	 */
+	private JButton btnDado;
+	/**
+	 * Atributo lblNPuntos
+	 */
+	private JLabel lblNPuntos;
+	/**
+	 * Atributo panelDisparos
+	 */	
+	private JPanel panelDisparos;
+	/**
+	 * Atributo lblTierra
+	 */
+	private JLabel lblTierra;
+	/**
+	 * Atributo lblPuntos
+	 */
+	private JLabel lblPuntos;
+	/**
+	 * Atributo panelTablero
+	 */
+	private JPanel panelTablero;
+	/**
+	 * Atributo btn0
+	 */
+	private JButton btn0;
+	/**
+	 * Atributo btn1
+	 */
+	private JButton btn1;
+	/**
+	 * Atributo btn2
+	 */
+	private JButton btn2;
+	/**
+	 * Atributo btn3
+	 */
+	private JButton btn3;
+	/**
+	 * Atributo btn4
+	 */
+	private JButton btn4;
+	/**
+	 * Atributo btn5
+	 */
+	private JButton btn5;
+	/**
+	 * Atributo btn7
+	 */
+	private JButton btn6;
+	/**
+	 * Atributo btn7
+	 */
+	private JButton btn7;
+	/**
+	 * Atributo lblNave
+	 */
+	private JLabel lblNave;
+	/**
+	 * Atributo lblDIsparo
+	 */
+	private JLabel lblDIsparo;
+	private JMenuBar menuBar;
+	private JMenu mnJuego;
+	private JMenuItem mntmNuevo;
+	private JMenuItem mntmNewMenuItem;
+
+	/**
+	 * Create the frame.
+	 * 
+	 * @param juego, juego
+	 */
+	public VentanaPrincipal(Juego juego) {
+		this.juego = juego;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/invader.jpg")));
+		setResizable(false);
+		setTitle("Invasi\u00F3n espacial");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 870, 405);
+		setLocationRelativeTo(null);
+		setJMenuBar(getMenuBar_1());
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtnDado());
+		contentPane.add(getLblNPuntos());
+		contentPane.add(getPanelDisparos());
+		contentPane.add(getLblTierra());
+		contentPane.add(getLblPuntos());
+		contentPane.add(getPanelTablero());
+		contentPane.add(getLblNave());
+	}
+	
+	/**
+	 * Método que devuelve el botón del dado
+	 * 
+	 * @return btnDado
+	 */
+	private JButton getBtnDado() {
+		if (btnDado == null) {
+			btnDado = new JButton("");
+			btnDado.setDisabledIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/dice.jpg")));
+			btnDado.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					iniciarJuego();
+				}
+			});
+			btnDado.setToolTipText("Haz click para obtener el numero de disparos");
+			btnDado.setBorderPainted(false);
+			btnDado.setBackground(Color.BLACK);
+			btnDado.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/dice.jpg")));
+			btnDado.setBounds(10, 11, 110, 110);
+		}
+		return btnDado;
+	}
+	
+	
+	/**
+	 * Método que devuelve la etiqueta n puntos
+	 * 
+	 * @return lblNPuntos
+	 */
+	private JLabel getLblNPuntos() {
+		if (lblNPuntos == null) {
+			lblNPuntos = new JLabel(String.valueOf(juego.getPuntos()));
+			lblNPuntos.setBorder(new LineBorder(new Color(255, 255, 255)));
+			lblNPuntos.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNPuntos.setFont(new Font("Consolas", Font.PLAIN, 30));
+			lblNPuntos.setForeground(Color.GREEN);
+			lblNPuntos.setBounds(531, 67, 105, 36);
+		}
+		return lblNPuntos;
+	}
+	
+	/**
+	 * Método que devuelve el panel de Disparos
+	 * 
+	 * @return panelDisparos
+	 */
+	private JPanel getPanelDisparos() {
+		if (panelDisparos == null) {
+			panelDisparos = new JPanel();
+			panelDisparos.setBackground(new Color(0, 0, 0));
+			panelDisparos.setBounds(163, 111, 345, 80);
+		}
+		return panelDisparos;
+	}
+	
+	/**
+	 * Método que devuelve la etiqueta de disparos
+	 * 
+	 * @return lblDisparo
+	 */
+	private JLabel getLblDisparo() {
+		lblDIsparo = new JLabel("");
+		lblDIsparo.setIcon(ImagenFactoria.getImagen());
+		lblDIsparo.setBorder(new LineBorder(Color.GREEN, 2));
+		return lblDIsparo;
+	}	
+	
+	/**
+	 * Método que devuelve la etiqueta tierra
+	 * 
+	 * @return lblTierra
+	 */
+	private JLabel getLblTierra() {
+		if (lblTierra == null) {
+			lblTierra = new JLabel("");
+			lblTierra.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/earth.jpg")));
+			lblTierra.setBounds(659, 11, 185, 180);
+		}
+		return lblTierra;
+	}
+	
+	/**
+	 * Método que devuelve la etiqueta de Puntos
+	 * 
+	 * @return lblPuntos
+	 */
+	private JLabel getLblPuntos() {
+		if (lblPuntos == null) {
+			lblPuntos = new JLabel("Puntos:");
+			lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPuntos.setFont(new Font("Tahoma", Font.PLAIN, 22));
+			lblPuntos.setForeground(Color.WHITE);
+			lblPuntos.setBounds(543, 31, 83, 25);
+		}
+		return lblPuntos;
+	}
+	
+	/**
+	 * Método que devuelve la etiqueta de la nave
+	 * 
+	 * @return lblNave
+	 */
+	private JLabel getLblNave() {
+		if (lblNave == null) {
+			lblNave = new JLabel("");
+			lblNave.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/spaceship.png")));
+			lblNave.setBounds(266, 11, 137, 77);
+		}
+		return lblNave;
+	}
+	
+	/**
+	 * Método que devuelve el panel del tablero
+	 * 
+	 * @return panelTablero
+	 */
+	private JPanel getPanelTablero() {
+		if (panelTablero == null) {
+			panelTablero = new JPanel();
+			panelTablero.setBackground(new Color(100, 149, 237));
+			panelTablero.setBorder(new LineBorder(new Color(100, 149, 237), 5));
+			panelTablero.setBounds(10, 233, 815, 100);
+			panelTablero.setLayout(new GridLayout(1, 8, 4, 0));
+			panelTablero.add(getBtn0());
+			panelTablero.add(getBtn1());
+			panelTablero.add(getBtn2());
+			panelTablero.add(getBtn3());
+			panelTablero.add(getBtn4());
+			panelTablero.add(getBtn5());
+			panelTablero.add(getBtn6());
+			panelTablero.add(getBtn7());
+			habilitarTablero(false);
+		}
+		return panelTablero;
+	}
+	
+	/**
+	 * Método que habilita tablero
+	 * 
+	 * @param estado, estado del tablero
+	 */
+	private void habilitarTablero(boolean estado) {
+		for (int i=0; i<getPanelTablero().getComponents().length;i++) {
+			getPanelTablero().getComponents()[i].setEnabled(estado);
+		}
+	}
+
+	/**
+	 * Método que inicia el Juego
+	 */
+	private void iniciarJuego() {
+		juego.lanzar();
+		pintarDisparos();;
+		habilitarTablero(true);
+		getBtnDado().setEnabled(false);
+	}
+	
+	/**
+	 * Método que pinta los disparos
+	 */
+	private void pintarDisparos() {
+		for (int i=0; i<juego.getDisparos();i++) {
+			getPanelDisparos().add(getLblDisparo());;
+		}
+		validate();
+	}
+	
+	/**
+	 * Método que pinta los disparos
+	 */
+	private void despintarDisparos() {
+		for (int i=0; i<juego.getDisparos();i++) {
+			despintaDisparo();
+		}
+		validate();
+	}
+	
+	/**
+	 * Método que dispara
+	 * 
+	 * @param i, disparar
+	 */
+	protected void dispara(int i) {
+		juego.dispara(i);
+		representaJuego(i);
+		
+	}	
+	
+	/**
+	 * Método que representa el juego
+	 * 
+	 * @param i, representar
+	 */
+	private void representaJuego(int i) {
+		pintaPuntos();
+		despintaDisparo();
+		pintaCasilla(i);
+		compruebaFin();
+		deshabilitaBoton(i);
+	}
+
+	/**
+	 * Método que pinta los puntos
+	 */
+	private void pintaPuntos() {
+		getLblNPuntos().setText(String.valueOf(juego.getPuntos()));
+	}
+	
+	/**
+	 * Método que despinta los disparos
+	 */
+	private void despintaDisparo() {
+		getPanelDisparos().remove(0);
+		getPanelDisparos().repaint();
+	}
+	
+	/**
+	 * Método que pinta la Casilla
+	 * 
+	 * @param i, pintar
+	 */
+	private void pintaCasilla(int i) {
+		ImageIcon imagen = ImagenFactoria.getImagen(juego.getTablero().getCasillas()[i]);
+		((JButton) getPanelTablero().getComponent(i)).setIcon(imagen);
+		((JButton) getPanelTablero().getComponent(i)).setDisabledIcon(imagen);
+	}
+	
+	/**
+	 * Método que despinta la Casilla
+	 * 
+	 * @param i, pintar
+	 */
+	private void despintaCasilla(int i) {
+		((JButton) getPanelTablero().getComponent(i)).setIcon(null);
+		((JButton) getPanelTablero().getComponent(i)).setDisabledIcon(null);
+	}
+	
+	/**
+	 * Método que pinta el tablero  
+	 */
+	private void pintaTablero() {
+		for (int i=0; i<getPanelTablero().getComponents().length;i++) {
+			pintaCasilla(i);
+		}
+	}
+	
+	/**
+	 * Método que despinta el tablero  
+	 */
+	private void despintaTablero() {
+		for (int i=0; i<getPanelTablero().getComponents().length;i++) {
+			despintaCasilla(i);
+		}
+	}
+	
+	/**
+	 * Método que comprueba el final
+	 */
+	private void compruebaFin() {
+		if (juego.isPartidaFinalizada()){
+			habilitarTablero(false);
+			pintaTablero();
+			if (juego.isInvasorEncontrado()) {
+				JOptionPane.showMessageDialog(null, "Invasor encontrado: " + juego.getTablero().getPosicionInvasor(), 
+						"Invasión espacial", JOptionPane.INFORMATION_MESSAGE);
+			} else if (juego.isMeteoritoEncontrado()) {
+				JOptionPane.showMessageDialog(null, "Meteorito encontrado: " + juego.getTablero().getPosicionMeteorito(), 
+						"Invasión espacial", JOptionPane.INFORMATION_MESSAGE);
+			} else if (juego.getDisparos()==0) {
+				JOptionPane.showMessageDialog(null, "Fin de disparos", 
+						"Invasión espacial", JOptionPane.INFORMATION_MESSAGE);
+			}			
+			inicializar();
+		}
+	}
+	
+	/**
+	 * Método que deshabilita el botón
+	 * 
+	 * @param i, deshabilitar
+	 */
+	private void deshabilitaBoton(int i) {
+		((JButton)getPanelTablero().getComponent(i)).setEnabled(false);
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn0
+	 */
+	private JButton getBtn0() {
+		if (btn0 == null) {
+			btn0 = new JButton("");
+			btn0.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(0);
+				}
+			});
+			btn0.setBackground(new Color(0, 0, 0));
+		}
+		return btn0;
+	}
+
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn1
+	 */
+	private JButton getBtn1() {
+		if (btn1 == null) {
+			btn1 = new JButton("");
+			btn1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(1);
+				}
+			});
+			btn1.setBackground(new Color(0, 0, 0));
+		}
+		return btn1;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn2
+	 */
+	private JButton getBtn2() {
+		if (btn2 == null) {
+			btn2 = new JButton("");
+			btn2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(2);
+				}
+			});
+			btn2.setBackground(new Color(0, 0, 0));
+		}
+		return btn2;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn3
+	 */
+	private JButton getBtn3() {
+		if (btn3 == null) {
+			btn3 = new JButton("");
+			btn3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(3);
+				}
+			});
+			btn3.setBackground(new Color(0, 0, 0));
+		}
+		return btn3;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn4
+	 */
+	private JButton getBtn4() {
+		if (btn4 == null) {
+			btn4 = new JButton("");
+			btn4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(4);
+				}
+			});
+			btn4.setBackground(new Color(0, 0, 0));
+		}
+		return btn4;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn5
+	 */
+	private JButton getBtn5() {
+		if (btn5 == null) {
+			btn5 = new JButton("");
+			btn5.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(5);
+				}
+			});
+			btn5.setBackground(new Color(0, 0, 0));
+		}
+		return btn5;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn6
+	 */
+	private JButton getBtn6() {
+		if (btn6 == null) {
+			btn6 = new JButton("");
+			btn6.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(6);
+				}
+			});
+			btn6.setBackground(new Color(0, 0, 0));
+		}
+		return btn6;
+	}
+	
+	/**
+	 * Método que devuelve el botón
+	 * 
+	 * @return btn7
+	 */
+	private JButton getBtn7() {
+		if (btn7 == null) {
+			btn7 = new JButton("");
+			btn7.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispara(7);
+				}
+			});
+			btn7.setBackground(new Color(0, 0, 0));
+		}
+		return btn7;
+	}
+	
+	private JMenuBar getMenuBar_1() {
+		if (menuBar == null) {
+			menuBar = new JMenuBar();
+			menuBar.setForeground(Color.WHITE);
+			menuBar.setBackground(Color.DARK_GRAY);
+			menuBar.add(getMnJuego());
+		}
+		return menuBar;
+	}
+	
+	private JMenu getMnJuego() {
+		if (mnJuego == null) {
+			mnJuego = new JMenu("Juego");
+			mnJuego.setBackground(Color.DARK_GRAY);
+			mnJuego.setForeground(Color.WHITE);
+			mnJuego.setMnemonic('J');
+			mnJuego.add(getMntmNuevo());
+			mnJuego.add(getMntmNewMenuItem());
+		}
+		return mnJuego;
+	}
+	
+	private JMenuItem getMntmNuevo() {
+		if (mntmNuevo == null) {
+			mntmNuevo = new JMenuItem("Nuevo");
+			mntmNuevo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					inicializar();
+				}
+			});
+			mntmNuevo.setForeground(Color.WHITE);
+			mntmNuevo.setBackground(Color.DARK_GRAY);
+			mntmNuevo.setMnemonic('N');
+			mntmNuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+		}
+		return mntmNuevo;
+	}
+	
+	private void inicializar() {
+		despintarDisparos();		
+		despintaTablero();
+		getBtnDado().setEnabled(true);
+		habilitarTablero(false);		
+		juego.inicializarJuego();
+		pintaPuntos();
+	}
+	private JMenuItem getMntmNewMenuItem() {
+		if (mntmNewMenuItem == null) {
+			mntmNewMenuItem = new JMenuItem("Salir");
+			mntmNewMenuItem.setMnemonic('S');
+			mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+			mntmNewMenuItem.setBackground(Color.DARK_GRAY);
+			mntmNewMenuItem.setForeground(Color.WHITE);
+		}
+		return mntmNewMenuItem;
+	}
+}

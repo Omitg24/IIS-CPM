@@ -1,0 +1,421 @@
+package igu;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import java.io.File;
+import java.awt.GridLayout;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.JToggleButton;
+import javax.swing.border.LineBorder;
+import javax.swing.ListSelectionModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import javax.swing.JSeparator;
+
+public class VentanaPrincipal extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5767732953572960676L;
+	private JPanel contentPane;
+	private JPanel panelNorte;
+	private JLabel lblLogo;
+	private JSlider sliderVolumen;
+	private JPanel panelVolumen;
+	private JLabel lblVolumen;
+	private JTextField textVolumen;
+	private JPanel panelCentro;
+	private JPanel panelLibreria;
+	private JPanel panelPlay;
+	private JLabel lblLibreria;
+	private JPanel panelBotonesLibreria;
+	private JLabel lblPlaylist;
+	private JPanel panelBotonesPlay;
+	private JButton btnAddToPlaylist;
+	private JButton btnDelL;
+	private JButton btnPlay;
+	private JButton btnStop;
+	private JButton btnNext;
+	private JButton btnPrev;
+	private JScrollPane scrollListaLibreria;
+	private JButton btnDelP;	
+	private JToggleButton tglbtnMute;
+	private JScrollPane scrollListaPlay;
+	private JList<File> listPlay;
+	private JList<File> listLibrary;
+	private DefaultListModel<File> modeloListPlay;
+	private DefaultListModel<File> modeloListLib;
+	private JMenuBar menuBar;
+	private JMenu mnFile;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmExit;
+	private JMenu mnPlay;
+	private JMenu mnOptions;
+	private JMenu mnHelp;
+	private JMenuItem mntmContents;
+	private JSeparator separator;
+	private JMenuItem mntmAbout;
+	
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaPrincipal frame = new VentanaPrincipal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logoTitulo2.png")));
+		setTitle("BatPlayer");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 700);
+		setLocationRelativeTo(null);
+		setJMenuBar(getMenuBar_1());
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		contentPane.add(getPanelNorte(), BorderLayout.NORTH);
+		contentPane.add(getPanelCentro(), BorderLayout.CENTER);
+	}
+
+	private JPanel getPanelNorte() {
+		if (panelNorte == null) {
+			panelNorte = new JPanel();
+			panelNorte.setBackground(Color.BLACK);
+			panelNorte.setLayout(new GridLayout(1, 3, 0, 0));
+			panelNorte.add(getLblLogo());
+			panelNorte.add(getSliderVolumen());
+			panelNorte.add(getPanelVolumen());
+		}
+		return panelNorte;
+	}
+	private JLabel getLblLogo() {
+		if (lblLogo == null) {
+			lblLogo = new JLabel("");
+			lblLogo.setBackground(Color.BLACK);
+			lblLogo.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logoBatplayer.png")));
+		}
+		return lblLogo;
+	}
+	private JSlider getSliderVolumen() {
+		if (sliderVolumen == null) {
+			sliderVolumen = new JSlider();
+			sliderVolumen.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					pintaYCambiaVolumen();
+				}
+			});
+			sliderVolumen.setPaintLabels(true);
+			sliderVolumen.setPaintTicks(true);
+			sliderVolumen.setForeground(Color.WHITE);
+			sliderVolumen.setMajorTickSpacing(20);
+			sliderVolumen.setMinorTickSpacing(5);
+			sliderVolumen.setBackground(Color.BLACK);
+		}
+		return sliderVolumen;
+	}
+	private void pintaYCambiaVolumen() {
+		getTextVolumen().setText(String.valueOf(getSliderVolumen().getValue()));
+	}
+	private JPanel getPanelVolumen() {
+		if (panelVolumen == null) {
+			panelVolumen = new JPanel();
+			panelVolumen.setAlignmentX(Component.LEFT_ALIGNMENT);
+			panelVolumen.setAlignmentY(Component.TOP_ALIGNMENT);
+			panelVolumen.setBackground(Color.BLACK);
+			panelVolumen.add(getLblVolumen());
+			panelVolumen.add(getTextVolumen());
+		}
+		return panelVolumen;
+	}
+	private JLabel getLblVolumen() {
+		if (lblVolumen == null) {
+			lblVolumen = new JLabel("Vol:");
+			lblVolumen.setFont(new Font("BatmanForeverOutline", Font.PLAIN, 30));
+			lblVolumen.setForeground(Color.RED);
+			lblVolumen.setBackground(Color.BLACK);
+		}
+		return lblVolumen;
+	}
+	private JTextField getTextVolumen() {
+		if (textVolumen == null) {
+			textVolumen = new JTextField();
+			textVolumen.setBorder(null);
+			textVolumen.setFont(new Font("Tahoma", Font.PLAIN, 35));
+			textVolumen.setForeground(Color.WHITE);
+			textVolumen.setBackground(Color.BLACK);
+			textVolumen.setEditable(false);
+			textVolumen.setColumns(3);
+			textVolumen.setText(String.valueOf(getSliderVolumen().getValue()));
+		}
+		return textVolumen;
+	}
+	private JPanel getPanelCentro() {
+		if (panelCentro == null) {
+			panelCentro = new JPanel();
+			panelCentro.setBackground(Color.BLACK);
+			panelCentro.setLayout(new GridLayout(0, 2, 5, 0));
+			panelCentro.add(getPanelLibreria());
+			panelCentro.add(getPanelPlay());
+		}
+		return panelCentro;
+	}
+	private JPanel getPanelLibreria() {
+		if (panelLibreria == null) {
+			panelLibreria = new JPanel();
+			panelLibreria.setBackground(Color.BLACK);
+			panelLibreria.setLayout(new BorderLayout(0, 0));
+			panelLibreria.add(getLblLibreria(), BorderLayout.NORTH);
+			panelLibreria.add(getPanelBotonesLibreria(), BorderLayout.SOUTH);
+			panelLibreria.add(getScrollListaLibreria(), BorderLayout.CENTER);
+		}
+		return panelLibreria;
+	}
+	private JPanel getPanelPlay() {
+		if (panelPlay == null) {
+			panelPlay = new JPanel();
+			panelPlay.setBackground(Color.BLACK);
+			panelPlay.setLayout(new BorderLayout(0, 0));
+			panelPlay.add(getLblPlaylist(), BorderLayout.NORTH);
+			panelPlay.add(getPanelBotonesPlay(), BorderLayout.SOUTH);
+			panelPlay.add(getScrollListaPlay(), BorderLayout.CENTER);
+		}
+		return panelPlay;
+	}
+	private JLabel getLblLibreria() {
+		if (lblLibreria == null) {
+			lblLibreria = new JLabel("\u266A" + " Library:");
+			lblLibreria.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblLibreria.setForeground(Color.RED);
+			lblLibreria.setBackground(Color.BLACK);
+		}
+		return lblLibreria;
+	}
+	private JPanel getPanelBotonesLibreria() {
+		if (panelBotonesLibreria == null) {
+			panelBotonesLibreria = new JPanel();
+			panelBotonesLibreria.setLayout(new GridLayout(1, 2, 0, 0));
+			panelBotonesLibreria.add(getBtnAddToPlaylist());
+			panelBotonesLibreria.add(getBtnDelL());
+		}
+		return panelBotonesLibreria;
+	}
+	private JLabel getLblPlaylist() {
+		if (lblPlaylist == null) {
+			lblPlaylist = new JLabel("\u266A" + " Playlist:");
+			lblPlaylist.setForeground(Color.RED);
+			lblPlaylist.setBackground(Color.BLACK);
+			lblPlaylist.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		}
+		return lblPlaylist;
+	}
+	private JPanel getPanelBotonesPlay() {
+		if (panelBotonesPlay == null) {
+			panelBotonesPlay = new JPanel();
+			panelBotonesPlay.setLayout(new GridLayout(1, 6, 0, 0));
+			panelBotonesPlay.add(getBtnDelP());
+			panelBotonesPlay.add(getBtnPlay());
+			panelBotonesPlay.add(getBtnStop());
+			panelBotonesPlay.add(getBtnNext());
+			panelBotonesPlay.add(getBtnPrev());
+			panelBotonesPlay.add(getTglbtnMute());
+		}
+		return panelBotonesPlay;
+	}
+	private JButton getBtnAddToPlaylist() {
+		if (btnAddToPlaylist == null) {
+			btnAddToPlaylist = new JButton("Add To PlayList");
+			btnAddToPlaylist.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnAddToPlaylist;
+	}
+	private JButton getBtnDelL() {
+		if (btnDelL == null) {
+			btnDelL = new JButton("Del");
+			btnDelL.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnDelL;
+	}
+	private JButton getBtnPlay() {
+		if (btnPlay == null) {
+			btnPlay = new JButton("\u25C4\u25C4");
+			btnPlay.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnPlay;
+	}
+	private JButton getBtnStop() {
+		if (btnStop == null) {
+			btnStop = new JButton("\u25BA");
+			btnStop.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnStop;
+	}
+	private JButton getBtnNext() {
+		if (btnNext == null) {
+			btnNext = new JButton("\u25A0");
+			btnNext.setFont(new Font("Dialog", Font.BOLD, 13));
+		}
+		return btnNext;
+	}
+	private JButton getBtnPrev() {
+		if (btnPrev == null) {
+			btnPrev = new JButton("\u25BA\u25BA");
+			btnPrev.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnPrev;
+	}
+	private JScrollPane getScrollListaLibreria() {
+		if (scrollListaLibreria == null) {
+			scrollListaLibreria = new JScrollPane();
+			scrollListaLibreria.setBorder(new LineBorder(Color.RED, 4));
+			scrollListaLibreria.setViewportView(getListLibrary());
+		}
+		return scrollListaLibreria;
+	}
+	private JButton getBtnDelP() {
+		if (btnDelP == null) {
+			btnDelP = new JButton("Del");
+			btnDelP.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return btnDelP;
+	}	
+	private JToggleButton getTglbtnMute() {
+		if (tglbtnMute == null) {
+			tglbtnMute = new JToggleButton("");
+			tglbtnMute.setFont(new Font("Arial", Font.BOLD, 15));
+		}
+		return tglbtnMute;
+	}
+	private JScrollPane getScrollListaPlay() {
+		if (scrollListaPlay == null) {
+			scrollListaPlay = new JScrollPane();
+			scrollListaPlay.setBorder(new LineBorder(Color.RED, 4));
+			scrollListaPlay.setViewportView(getListPlay());
+		}
+		return scrollListaPlay;
+	}
+	private JList<File> getListLibrary() {
+		if (listLibrary == null) {
+			modeloListLib = new DefaultListModel<File>();
+			listLibrary = new JList<File>(modeloListLib);
+			listLibrary.setBackground(Color.BLACK);
+			listLibrary.setForeground(Color.WHITE);
+		}
+		return listLibrary;
+	}
+	private JList<File> getListPlay() {
+		if (listPlay == null) {
+			modeloListPlay= new DefaultListModel<File>();
+			listPlay = new JList<File>(modeloListPlay);
+			listPlay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			listPlay.setForeground(Color.WHITE);
+			listPlay.setBackground(Color.BLACK);
+		}
+		return listPlay;
+	}
+	private JMenuBar getMenuBar_1() {
+		if (menuBar == null) {
+			menuBar = new JMenuBar();
+			menuBar.add(getMnFile());
+			menuBar.add(getMnPlay());
+			menuBar.add(getMnOptions());
+			menuBar.add(getMnHelp());
+		}
+		return menuBar;
+	}
+	private JMenu getMnFile() {
+		if (mnFile == null) {
+			mnFile = new JMenu("File");
+			mnFile.add(getMntmOpen());
+			mnFile.add(getMntmExit());
+		}
+		return mnFile;
+	}
+	private JMenuItem getMntmOpen() {
+		if (mntmOpen == null) {
+			mntmOpen = new JMenuItem("Open");
+		}
+		return mntmOpen;
+	}
+	private JMenuItem getMntmExit() {
+		if (mntmExit == null) {
+			mntmExit = new JMenuItem("Exit");
+		}
+		return mntmExit;
+	}
+	private JMenu getMnPlay() {
+		if (mnPlay == null) {
+			mnPlay = new JMenu("Play");
+		}
+		return mnPlay;
+	}
+	private JMenu getMnOptions() {
+		if (mnOptions == null) {
+			mnOptions = new JMenu("Options");
+		}
+		return mnOptions;
+	}
+	private JMenu getMnHelp() {
+		if (mnHelp == null) {
+			mnHelp = new JMenu("Help");
+			mnHelp.add(getMntmContents());
+			mnHelp.add(getMntmAbout());
+			mnHelp.add(getSeparator());
+		}
+		return mnHelp;
+	}
+	private JMenuItem getMntmContents() {
+		if (mntmContents == null) {
+			mntmContents = new JMenuItem("Contents");
+			mntmContents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+		}
+		return mntmContents;
+	}
+	private JSeparator getSeparator() {
+		if (separator == null) {
+			separator = new JSeparator();
+		}
+		return separator;
+	}
+	private JMenuItem getMntmAbout() {
+		if (mntmAbout == null) {
+			mntmAbout = new JMenuItem("About");
+		}
+		return mntmAbout;
+	}
+}

@@ -1,0 +1,40 @@
+package igu;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+
+public class VentanaConfirmación extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaConfirmación dialog = new VentanaConfirmación();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public VentanaConfirmación() {
+		setTitle("McDonald's: Confirmaci\u00F3n de Pedido");
+		setBounds(100, 100, 600, 300);
+
+	}
+
+}

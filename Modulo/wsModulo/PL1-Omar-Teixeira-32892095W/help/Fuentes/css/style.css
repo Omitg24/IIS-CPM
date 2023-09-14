@@ -1,0 +1,34 @@
+body { 
+	font-size:16pt;
+	font-family: Helvetica, Geneva, Arial, sans-serif;
+	text-align: justify;
+	color: black 
+} 
+
+#encabezado {
+	font-size: 50px;
+	font-family: "Berlin Sans FB Demi", Geneva, Arial, sans-serif;
+	font-weight: bold;
+	color:  #145a32 
+}
+
+h1 {
+  	font-size:42px;
+	font-family: "Berlin Sans FB Demi", Geneva, Arial, sans-serif;
+	font-weight: bold;
+	color: #196f3d
+} 
+
+h2 {
+	font-size:36px;
+	font-family: "Berlin Sans FB Demi", Geneva, Arial, sans-serif;
+	font-weight: bold;
+	color: #1d8348 	
+}
+
+h3 {
+	font-size:32px;	
+	font-family: "Berlin Sans FB Demi", Geneva, Arial, sans-serif;
+	font-weight: bold;
+	color: #1e8449  	
+}

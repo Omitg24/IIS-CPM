@@ -1,0 +1,42 @@
+package logica;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+
+public class Menu {
+	
+	private static Articulo[] listaDeArticulos;
+	
+	public static void main(String[] args) {		
+		inicializer(System.out);	
+		hacerPedido();
+	}
+
+	private static void inicializer(PrintStream out) {
+		Carta carta = new Carta();
+		listaDeArticulos = carta.getArticulos();
+		out.println("Bienvenido a McDonald's.");
+		out.println("Seleccione los productos que quiera\n");
+		for (int i=0; i<listaDeArticulos.length;i++) {
+			out.println(i+1 + "->  " +listaDeArticulos[i]);
+		}
+	}
+
+	private static void hacerPedido() {
+		Pedido pedido = new Pedido();
+		
+		pedido.add(seleccion(), );
+	}
+	
+	private static int unidades() {
+		
+	}
+	
+	
+	private static Articulo seleccion() {
+		InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader (isr);
+        if (br)
+	}
+}

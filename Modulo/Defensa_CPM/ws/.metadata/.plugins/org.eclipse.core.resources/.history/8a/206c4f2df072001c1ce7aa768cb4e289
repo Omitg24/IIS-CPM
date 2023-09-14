@@ -1,0 +1,8 @@
+package logic.boxes;
+
+public class BoxGift extends Box{
+	
+	public BoxGift() {
+		setPoints(0);
+	}
+}

@@ -1,0 +1,63 @@
+package igu;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+
+public class VentanaConfirmación extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaConfirmación dialog = new VentanaConfirmación();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public VentanaConfirmación() {
+		setTitle("McDonald's: Confirmaci\u00F3n de Pedido");
+		setBounds(100, 100, 600, 300);
+		getContentPane().setLayout(null);
+		getContentPane().add(getLblNewLabel());
+		getContentPane().add(getLblNewLabel_1());
+
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(VentanaConfirmación.class.getResource("/img/ok.png")));
+			lblNewLabel.setBounds(10, 84, 50, 56);
+		}
+		return lblNewLabel;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("Pulse Finalizar para confirmar su pedido");
+			lblNewLabel_1.setFont(new Font("Arial Black", Font.PLAIN, 21));
+			lblNewLabel_1.setBounds(70, 101, 481, 25);
+		}
+		return lblNewLabel_1;
+	}
+}

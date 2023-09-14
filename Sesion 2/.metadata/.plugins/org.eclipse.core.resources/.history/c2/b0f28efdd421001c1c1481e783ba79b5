@@ -1,0 +1,49 @@
+package logica;
+
+import java.io.PrintStream;
+import java.util.Scanner;
+
+public class Menu {
+	
+	private static Articulo[] listaDeArticulos;	
+	private static Scanner reader = new Scanner( System.in );
+	
+	public static void main(String[] args) {		
+		inicializer(System.out);	
+		hacerPedido();
+	}
+
+	private static void inicializer(PrintStream out) {
+		Carta carta = new Carta();
+		listaDeArticulos = carta.getArticulos();
+		out.println("Bienvenido a McDonald's.");
+		out.println("Seleccione los productos que quiera\n");
+		for (int i=0; i<listaDeArticulos.length;i++) {
+			out.println(i+1 + "->  " +listaDeArticulos[i]);
+		}
+	}
+
+	private static void hacerPedido() {
+		Pedido pedido = new Pedido();
+		pedido.add(seleccion(), unidades());
+		pedido.grabarPedido();
+	}
+	
+	private static int unidades() {
+		int num = reader.nextInt();
+		while (num<=0) {
+			num = reader.nextInt();
+		}
+		return num;
+	}
+	
+	
+	private static Articulo seleccion() {
+		
+		int num = reader.nextInt();
+		while (num<=0 || num>listaDeArticulos.length) {
+        	num = reader.nextInt();
+        } 
+        return listaDeArticulos[num+1];
+	}
+}

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/map_1_0.dtd">
+
+<map version="1.0">
+
+<mapID target="Introduccion" url="Fuentes/Introduccion.html" />
+<mapID target="Seleccion de idioma" url="Fuentes/Idioma.html" />
+<mapID target="Introduccion del codigo" url="Fuentes/Codigo.html" />
+<mapID target="Ventana del juego" url="Fuentes/VentanaDelJuego.html" />
+<mapID target="Panel de botones" url="Fuentes/PanelDeBotones.html" />
+<mapId target="Regalo directo" url="Fuentes/regalodirecto.html" />
+<mapID target="Sus puntos" url="Fuentes/Puntos.html" />
+<mapID target="Sus tiradas" url="Fuentes/Tiradas.html" />
+<mapID target="Ventana de canjeo" url="Fuentes/VentanaDeCanjeo.html" />
+<mapID target="Panel de canjeo" url="Fuentes/PanelDeCanjeo.html" />
+<mapID target="Ventana de viajes/experiencias" url="Fuentes/PanelViajes.html" />
+<mapID target="Filtros por seccion" url="Fuentes/Filtros.html" />
+<mapID target="Slider de filtrado" url="Fuentes/Slider.html" />
+<mapID target="Unidades a añadir/eliminar" url="Fuentes/Unidades.html" />
+<mapID target="Informacion del regalo" url="Fuentes/Info.html" />
+<mapID target="Lista de los regalos" url="Fuentes/Lista.html" />
+<mapID target="Botones de eliminar y solicitar" url="Fuentes/EliminarYSolicitar.html" />
+
+</map>

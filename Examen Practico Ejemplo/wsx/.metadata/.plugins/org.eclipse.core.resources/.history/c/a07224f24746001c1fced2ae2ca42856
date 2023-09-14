@@ -1,0 +1,14 @@
+package logica;
+
+import java.util.List;
+
+public class Productos {
+	private static final String FICHERO_ARTICULOS = "files/premios.dat";
+	
+	private List<Articulo> listaProductos;
+	
+	public Producto() {
+		listaProductos = new ArrayList<Articulo>;
+		cargarArticulos();
+	}
+}

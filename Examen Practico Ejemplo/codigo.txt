@@ -1,0 +1,71 @@
+//METODOS UTILIZADOS EN PRÁCTICAS que se pueden emplear (así mismo o con modificaciones) en el examen
+
+// Método que convierte una lista en un array
+public Articulo[] getArticulos(){
+	Articulo[] articulos = listaArticulos.toArray(new Articulo[listaArticulos.size()]);
+	return articulos;	
+}
+
+// Método que lee un fichero y lo carga en una lista
+public static void loadFile (String nombreFicheroEntrada, List<Articulo> listaCatalogo) {
+	   String linea;
+	   String[] datosArticulo= null;	   
+	   try {
+	    	   BufferedReader fichero = new BufferedReader(new FileReader(nombreFicheroEntrada));
+	    		while (fichero.ready()) {
+	    			linea = fichero.readLine();
+	    			datosArticulo = linea.split("@");
+	    			listaCatalogo.add(new Articulo(datosArticulo[0],datosArticulo[1],datosArticulo[2],Float.parseFloat(datosArticulo[3]),0));
+	    		}
+	    		fichero.close();
+	    }
+	    catch (FileNotFoundException fnfe) {
+	      System.out.println("El archivo no se ha encontrado.");
+	    }
+	    catch (IOException ioe) {
+	      new RuntimeException("Error de entrada/salida.");
+	    } 
+	  }
+
+// Método que añade un elemento a una lista actualizando un campo numérico
+public void add (Articulo articuloDelCatalogo, int unidades){
+		Articulo articuloEnPedido = null;
+	
+		for (Articulo a : listaPedido){
+			if (a.getCodigo().equals(articuloDelCatalogo.getCodigo()))
+				articuloEnPedido = a;
+		}
+		
+		if (articuloEnPedido == null){
+			Articulo articuloAPedido = new Articulo(articuloDelCatalogo);
+			articuloAPedido.setUnidades(unidades);
+			listaPedido.add(articuloAPedido);
+		}
+		else {
+			int totalUnidades = articuloEnPedido.getUnidades() + unidades;
+			articuloEnPedido.setUnidades(totalUnidades);
+		}
+	}
+
+// Método que redefine toString
+public String toString() {
+	StringBuffer buffer = new StringBuffer();
+	buffer.append(this.tipo);
+	buffer.append(" - ");
+	buffer.append(this.denominacion);
+	buffer.append(" - ");
+	buffer.append(this.precio);
+	buffer.append(" €");
+	if (this.unidades!=0){
+		buffer.append(" (");
+		buffer.append(this.unidades);
+		buffer.append(" uds)");
+		}
+	return buffer.toString();
+	}
+   }	
+
+// Método para lanzar un dado
+public static int lanzar() { 
+	return ((int) (Math.random() * Juego.maxDisparos) + 1);
+ }
